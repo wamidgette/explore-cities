@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  //TODO: Temp fix - Not sure why the horizontal scroll bar is showing up. None of my elements are wider than the page
+  overflow-x: hidden;
+  //Colors
+  --primary-color: #757575;
+  --secondary-color: #020077;
+  --white: #fff;
+  --off-white: rgb(255, 255, 226);
+  --dark-gray: #0e0e0e;
+  --black: #0c0c0c;
+  --error-color: #eb5757;
+  //Fonts 
+  --primary-font: 'Consolas', 'IBM Plex Mono', monospace;
+  --secondary-font: poppins;
+  --global-font-size: 16px;
+  @media (max-width: 600px) {
+    --global-font-size: 18px;
+  }
+}
+
+.app{
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+  flex: 0 0 0;
+}
+
+main{
+  flex: 1 0 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 50px;
+  //remove padding at tablet size downward
+  @media (max-width: 768px){
+    padding: 0;
+  }
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--primary-font);
+}
+
+h1{
+  font-size: 3.5rem;
+  color: var(--white);
+  text-align: center;
+}
+
+h2{
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+h3{
+  font-size: 1.5rem;
+}
+
+p{
+  color: var(--light-gray);
+  font-size: 1.2rem;
+}
+
+body{
+  background: var(--white);
+  color: var(--light-gray);
+  font-family: var(--primary-font);
+  font-size: 16px;
+}
+
+.app{
+  min-height:100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes rotate20{
+  100%{
+      transform: rotateZ(-20deg) scale(1.2);
+  }
+}

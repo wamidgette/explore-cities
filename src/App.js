@@ -14,17 +14,17 @@ const AppDiv = styled.div`
 `;
 function App() {
   const [userChoices, setUserChoices] = useState({
-    job: formData.jobs[0].id,
-    priority: formData.reports[0].id,
-    stats: []
+    job: localStorage.getItem('job') || formData.jobs[0].id,
+    priority: localStorage.getItem('priority') || formData.reports[0].id,
+    stats: localStorage.getItem('stats').split(",") || []
   }) 
   //if cached, use cached userchoices (preserves when user refreshes)
-  console.log(userChoices)
   return (
     <AppDiv className = "app">  
       <Helmet>
         <meta charSet="utf-8" />
         <title>Urban Area Info Finder</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       </Helmet>
       <Header/>
       <main>

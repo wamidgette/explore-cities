@@ -29,7 +29,7 @@ export const BreakPoints = {
 };
 
 export const TextButton = styled.button.attrs({type: 'button'})`  
-  width: max-width;
+  width: max-content;
   height: 50px;
   border: 2px solid var(--secondary-color);
   border-radius: 20px;
@@ -48,6 +48,23 @@ export const TextButton = styled.button.attrs({type: 'button'})`
     }
   }
 `;
+
+export const TabButton = styled.button.attrs({type: 'button'})`
+  font-size: 1.5rem;
+  font-family: var(--primary-font);
+  flex: 1 1;
+  border:none;
+  border: 2px solid var(--primary-color);
+  :hover{
+    background: var(--off-white);
+  }
+  &.active{
+    border-bottom: none;
+    background: var(--off-white);
+  }
+  cursor: pointer;
+`;
+
 
 export const ButtonLink = styled(Link)`
   text-decoration: none;

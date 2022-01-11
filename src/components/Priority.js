@@ -4,21 +4,10 @@ import { BreakPoints, DirectionButton, DropDownList } from '../styles/styles';
 import { FormWrapper } from './FormWrapper';
 
 export default function UserChoices({userChoices, setUserChoices, data}){
-  const [editing, setEditing] = useState('priority');
   function handleSelectChange(event){
-    setUserChoices({...userChoices, [editing]: event.target.value})
+    localStorage.setItem('priority', event.target.value )
+    setUserChoices({...userChoices, 'priority': event.target.value})
   }
-  function lastFormSection(){
-    //start editing next userChoice
-    const newIndex = (Object.keys(userChoices).indexOf(editing) - 1);
-    setEditing(Object.keys(userChoices)[newIndex])
-  }
-  function nextFormSection(){
-    //start editing next userChoice
-    const newIndex = (Object.keys(userChoices).indexOf(editing) + 1);
-    setEditing(Object.keys(userChoices)[newIndex])
-  }
-  console.log(userChoices)
   return (
     <>
       <FormWrapper>

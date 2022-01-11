@@ -31,25 +31,24 @@ const CheckBoxLabel = styled.label`
     background: orange;
   }
 `;
-const ForwardBackButtons = styled.div`
-  display: flex;
-  gap: 50px;
-  justify-content: center;
+const RemainingChoices = styled.p`
+  span{
+    color: black;
+    &.warning{
+      color: var(--error-color);
+    }
+  }
 `;
-const ForwardButton = styled(Link)`
-  width: min-content;
-  background: transparent;
-  border: none;
-  font-size: 3rem;
-  cursor: pointer;
+
+const ToMapButton = styled(TextButton)`
+  align-self: center;
 `;
-const WarningText = styled.p`
-  color: var(--error-color);
-`;
+
+
 export default function Stats({userChoices, setUserChoices, data}){
   const navigate = useNavigate();
-  const [editing, setEditing] = useState('stats');
   const [choiceLengthWarning, setChoiceLengthWarning] = useState(null);
+  console.log(userChoices.stats)
   function handleSelectChange(event){
     const stats = userChoices.stats;
     //If the user is trying to add a 6th choice, return and setwarn
@@ -63,36 +62,38 @@ export default function Stats({userChoices, setUserChoices, data}){
     if(event.currentTarget.checked){
       stats.push(String(event.currentTarget.value));
       event.currentTarget.parentElement.classList.add('checked')
-    } //remove the value from the array
+    } //else remove the value from the array
     else{
       stats.splice(stats.indexOf(event.currentTarget.value), 1);
       event.currentTarget.parentElement.classList.remove('checked')
     }
+    console.log(stats)
+    localStorage.setItem('stats', stats)
+    console.log(localStorage.getItem('stats'))
     setUserChoices({...userChoices, stats: stats})
   }
   function navigateToMap(){
-    navigate("../map");
+    if(userChoices.stats.length){
+      navigate("../map");
+    }
   }
-  console.log(userChoices)
   return (
     <>
       <FormWrapper>
-        <div className={editing==="job"? "visible" : "" }>
-          <h3>I want to see world rankings for:</h3>
-          <span>(Select up to five)</span>
-          <CheckBoxContainer>
-            {data.map((data, index) => 
-              <CheckBoxLabel className={userChoices.stats.includes(data) && "checked"} key={index} htmlFor={data}>
-                <input checked={userChoices.stats.includes(data)} onChange={handleSelectChange} type="checkbox" id={data} name ={data} key={index} value={data}/>
-                <div>
-                  <span>{data}</span>
-                </div>
-              </CheckBoxLabel>
-            )}
-          </CheckBoxContainer>
-          <WarningText>{choiceLengthWarning? "You already have 5 choices" : <p/>}</WarningText>
-          <TextButton onClick={userChoices.stats.length && navigateToMap} className = {userChoices.stats.length && "active"}>Continue to Map</TextButton>
-        </div>
+        <h3>I want to see world rankings for:</h3>
+        <span>(Select up to five)</span>
+        <CheckBoxContainer>
+          {data.map((data, index) => 
+            <CheckBoxLabel className={userChoices.stats.includes(data) && "checked"} key={index} htmlFor={data}>
+              <input checked={userChoices.stats.includes(data)} onChange={handleSelectChange} type="checkbox" id={data} name ={data} key={index} value={data}/>
+              <div>
+                <span>{data}</span>
+              </div>
+            </CheckBoxLabel>
+          )}
+        </CheckBoxContainer>
+        <RemainingChoices>{choiceLengthWarning? <span className="warning">You already have 5 choices</span> : <span>{`You have ${5 - userChoices.stats.length} choices remaining`}</span>}</RemainingChoices>
+        <ToMapButton onClick={navigateToMap} className = {userChoices.stats.length && "active"}>Continue to Map</ToMapButton>
       </FormWrapper>
     </>
   )

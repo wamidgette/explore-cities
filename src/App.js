@@ -16,7 +16,7 @@ function App() {
   const [userChoices, setUserChoices] = useState({
     job: localStorage.getItem('job') || formData.jobs[0].id,
     priority: localStorage.getItem('priority') || formData.reports[0].id,
-    stats: localStorage.getItem('stats').split(",") || []
+    stats: localStorage.getItem('stats')?.split(",") || []
   }) 
   //if cached, use cached userchoices (preserves when user refreshes)
   return (

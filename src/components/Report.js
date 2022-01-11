@@ -26,10 +26,8 @@ const ReportLine = styled.div`
 `;
 
 function getValueFromData(object){
-  console.log(object)
   let value = object['float_value'] || object['int_value'] || object['string_value'] || object['currency_dollar_value'] || object['percent_value'] 
   const type = object.type
-  console.log(value, type)
   switch(type){
     case 'percent':
       value = `${(value*100).toFixed(2)}%`
@@ -55,7 +53,6 @@ export function Report({cityData}){
     }
     setReportData(cityData.reports)
   },[cityData])
-  console.log(reportData)
   return(
     <ReportContainer>
       <ReportTitle>{reportData? reportData.label : 'no data'}</ReportTitle>

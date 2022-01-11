@@ -2,7 +2,6 @@ import styled from "styled-components"
 import { useEffect, useRef, useState } from 'react'
 import Chart from "chart.js/auto";
 
-const Canvas = styled.canvas``;
 const GraphContainer = styled.div`
   padding: 0 30px 30px 30px;
 `;
@@ -53,7 +52,7 @@ export function Graph({cityData, selection}){
       }
     }
     else if(selection==="stats"){
-      setGraphName('Stats (Out of 10)')
+      setGraphName('Stats (Ranking 0 to 10)')
       data = cityData.stats
       labels = data.map((stat=>stat.name))
       dataset = {
@@ -133,15 +132,13 @@ export function Graph({cityData, selection}){
       chartInstance.update();
       return
     }
-    console.log('initialize chart')
-    //else create the new chart
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityData, selection])
 
   return(
     <GraphContainer>
       <GraphTitle>{graphName}</GraphTitle>
-      <Canvas ref={chartContainer}></Canvas>
+      <canvas ref={chartContainer}></canvas>
     </GraphContainer>
   )
 }

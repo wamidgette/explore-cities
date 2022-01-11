@@ -25,6 +25,27 @@ const ReportLine = styled.div`
   padding:10px;
 `;
 
+function getValueFromData(object){
+  console.log(object)
+  let value = object['float_value'] || object['int_value'] || object['string_value'] || object['currency_dollar_value'] || object['percent_value'] 
+  const type = object.type
+  console.log(value, type)
+  switch(type){
+    case 'percent':
+      value = `${(value*100).toFixed(2)}%`
+      break;
+    case 'currency_dollar':
+      value = `$${value}`
+      break; 
+    case 'float':
+      value = value.toFixed(2)
+      break;
+    default:
+      break;
+  }
+  return value
+}
+
 export function Report({cityData}){
   const [reportData, setReportData] = useState(null);
   useEffect(()=>{
@@ -39,7 +60,7 @@ export function Report({cityData}){
     <ReportContainer>
       <ReportTitle>{reportData? reportData.label : 'no data'}</ReportTitle>
       <ReportDetails>
-        {reportData? (reportData.data.map((object)=><ReportLine><span>{`${object.label}: `}</span><span>{object[Object.keys(object)[0]]}</span></     ReportLine>)) : ('')}
+        {reportData? (reportData.data.map((object)=><ReportLine><span>{`${object.label}: `}</span><span>{getValueFromData(object)}</span></     ReportLine>)) : ('')}
       </ReportDetails>
     </ReportContainer>
   )

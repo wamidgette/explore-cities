@@ -53,8 +53,10 @@ export const TabButton = styled.button.attrs({type: 'button'})`
   font-size: 1.5rem;
   font-family: var(--primary-font);
   flex: 1 1;
-  border:none;
-  border: 2px solid var(--primary-color);
+  //remove default button border type
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  cursor: pointer;
   :hover{
     background: var(--off-white);
   }
@@ -62,7 +64,11 @@ export const TabButton = styled.button.attrs({type: 'button'})`
     border-bottom: none;
     background: var(--off-white);
   }
-  cursor: pointer;
+  &:nth-child(2){
+    border-left: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+  }
+
 `;
 
 

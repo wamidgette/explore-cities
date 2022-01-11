@@ -10,32 +10,33 @@ import { Report } from './Report';
 const MapWrapper = styled.div`
   width: 100%;
   flex: 1 0;
-  display: flex;
-  padding: 20px;
-  gap: 60px;
+  position: relative;
 `;
 const MapArea = styled.div`
-  flex: 0 1 1500px;
   background: var(--water-blue);
-  border-radius: 50%;
+  border-radius-top-left: 50%;
   border: 2px solid var(--primary-color);
   box-shadow: -2px 2px 2px var(--primary-color);
   height: 75vh;
+  min-height:500px;
 `;
 const Data = styled.div`
-  flex: 0 0 600px;
-  padding: 3px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 400px;
 `;
 const DataNav = styled.nav`
   width: 100%;
   display: flex;
-  gap: 10px;
+  border: 2px solid var(--primary-color);
+  border-bottom: none;
 `;
-const Tab = styled(TabButton)``;
+const Tab = styled(TabButton)`
+`;
 
 const DataDisplay = styled.div`
   background: var(--off-white);
-  min-height: 60vh;
   border: 2px solid var(--primary-color);
   margin-top: -2px;
 `;

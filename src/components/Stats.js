@@ -48,7 +48,6 @@ const ToMapButton = styled(TextButton)`
 export default function Stats({userChoices, setUserChoices, data}){
   const navigate = useNavigate();
   const [choiceLengthWarning, setChoiceLengthWarning] = useState(null);
-  console.log(userChoices.stats)
   function handleSelectChange(event){
     const stats = userChoices.stats;
     //If the user is trying to add a 6th choice, return and setwarn
@@ -67,9 +66,7 @@ export default function Stats({userChoices, setUserChoices, data}){
       stats.splice(stats.indexOf(event.currentTarget.value), 1);
       event.currentTarget.parentElement.classList.remove('checked')
     }
-    console.log(stats)
     localStorage.setItem('stats', stats)
-    console.log(localStorage.getItem('stats'))
     setUserChoices({...userChoices, stats: stats})
   }
   function navigateToMap(){

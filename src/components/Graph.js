@@ -1,17 +1,25 @@
 import styled from "styled-components"
 import { useEffect, useRef, useState } from 'react'
 import Chart from "chart.js/auto";
+import { BreakPoints } from '../styles/styles';
 
 const GraphContainer = styled.div`
-  padding: 0 30px 30px 30px;
+`;
+const Canvas = styled.canvas`
+  width: 400px;
+  @media${BreakPoints.smallOnly}{
+    width: 300px;
+  }
 `;
 const GraphTitle = styled.h4`
   text-align: center;
+  font-size:1.3rem;
 `;
 export function Graph({cityData, selection}){
   const chartContainer = useRef(null)
   const [graphName, setGraphName] = useState(null)
   const [chartInstance, setChartInstance] = useState(null)
+  //sets configuration settings for the graph when the cityData or selection is updated
   function newGraphConfig(){
     let data;
     let labels;
@@ -52,7 +60,7 @@ export function Graph({cityData, selection}){
       }
     }
     else if(selection==="stats"){
-      setGraphName('Stats (Ranking 0 to 10)')
+      setGraphName('(Ranked 0 to 10)')
       data = cityData.stats
       labels = data.map((stat=>stat.name))
       dataset = {
@@ -97,27 +105,27 @@ export function Graph({cityData, selection}){
     }
     return newDataConfig;
   }
-    //Create new chart on component load
-    useEffect(()=>{
-      let config = {
-        type: 'bar',
-        data: {
-          labels: null,
-          datasets: []
-        },
-        options: {
-        }
-      };
-      //If CityData has already been selected add data to basic config
-      if(cityData){
-        config = newGraphConfig();
+  //Create new chart on component load
+  useEffect(()=>{
+    let config = {
+      type: 'bar',
+      data: {
+        labels: null,
+        datasets: []
+      },
+      options: {
       }
-      setChartInstance(new Chart(
-        chartContainer.current.getContext('2d'), 
-        config
-      ));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [chartContainer])
+    };
+    //If CityData has already been selected add data to basic config
+    if(cityData){
+      config = newGraphConfig();
+    }
+    setChartInstance(new Chart(
+      chartContainer.current.getContext('2d'), 
+      config
+    ));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chartContainer])
 
   //When selections and citydata change the graph data
   useEffect(()=>{
@@ -138,7 +146,7 @@ export function Graph({cityData, selection}){
   return(
     <GraphContainer>
       <GraphTitle>{graphName}</GraphTitle>
-      <canvas ref={chartContainer}></canvas>
+      <Canvas ref={chartContainer}></Canvas>
     </GraphContainer>
   )
 }

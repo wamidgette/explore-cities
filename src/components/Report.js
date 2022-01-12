@@ -2,13 +2,14 @@ import styled from "styled-components"
 import { useEffect, useRef, useState } from 'react'
 
 const ReportContainer = styled.div`
-margin: auto;
+  margin: auto;
+  width: 100%;
 `;
 const ReportTitle = styled.h4`
   text-align: center;
+  font-size: 1.3rem;
 `;
 const ReportDetails = styled.div`
-  padding: 0 30px 30px 30px;
 `;
 const ReportLine = styled.div`
   font-weight: bold;

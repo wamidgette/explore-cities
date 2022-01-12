@@ -51,9 +51,10 @@ h1, h2, h3, h4 {
 }
 
 h1{
-  font-size: 3.5rem;
+  font-size: 2rem;
   color: var(--white);
   text-align: center;
+  // @media(max-width: )
 }
 
 h2{

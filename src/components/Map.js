@@ -28,7 +28,10 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4rem;
+  font-size: 3rem;
+  @media${BreakPoints.smallOnly}{
+    font-size: 2rem;
+  }
 `;
 const MapArea = styled.div`
   background: var(--water-blue);
@@ -39,6 +42,10 @@ const MapArea = styled.div`
   @media${BreakPoints.largeDown}{
     flex: 0 0 500px;
   }
+  @media${BreakPoints.medDown}{
+    flex: 0 0 300px;
+  }
+
 `;
 const DataDisplay = styled.div`
   background: var(--off-white);
@@ -69,6 +76,7 @@ const DataNav = styled.nav`
   border-bottom: none;
 `;
 const Tab = styled(TabButton)`
+padding:0;
 `;
 
 const CityName = styled.h3`

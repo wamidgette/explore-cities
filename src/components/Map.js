@@ -19,7 +19,7 @@ const MapWrapper = styled.div`
     height: max-content;
   }
 `;
-const Loading = styled.div`
+const MapLoadingMessage = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -33,9 +33,12 @@ const Loading = styled.div`
     font-size: 2rem;
   }
 `;
+
+const CityLoadingMessage = styled(MapLoadingMessage)`
+  font-size: 20px;
+`;
 const MapArea = styled.div`
   background: var(--water-blue);
-  border-radius-top-left: 50%;
   border: 2px solid var(--primary-color);
   box-shadow: -2px 2px 2px var(--primary-color);
   height: 100%;
@@ -49,8 +52,6 @@ const MapArea = styled.div`
 `;
 const DataDisplay = styled.div`
   background: var(--off-white);
-  border: 2px solid var(--primary-color);
-  margin-top: -2px;
   padding: 20px;
   @media${BreakPoints.largeDown}{
     display: flex;
@@ -64,25 +65,31 @@ const Data = styled.div`
   right: 0;
   top: 0;
   width: 400px;
+  border-bottom-left-radius: 50px;
+  overflow: hidden;
+  border: 2px solid var(--primary-color);
   @media${BreakPoints.largeDown}{
     position: relative;
     width: 100%;
+    border-bottom-left-radius: 0;
   }
 `;
 const DataNav = styled.nav`
   width: 100%;
   display: flex;
-  border: 2px solid var(--primary-color);
-  border-bottom: none;
 `;
 const Tab = styled(TabButton)`
-padding:0;
+  padding:0;
+  margin:0;
 `;
 
 const CityName = styled.h3`
   text-align: center;
   margin: 0 30px;
   font-size: 2rem;
+  @media${BreakPoints.smallOnly}{
+    font-size: 1.5rem
+  }
 `;
 const Selection = styled.div``;
 
@@ -90,13 +97,14 @@ export default function Map({userChoices, setUserChoices}){
   //TODO: if selections have not been made redirect the user to the home page
   const [cityData, setCityData] = useState(null)
   const [selection, setSelection] = useState('salaries')
-  const [loading, setLoading] = useState(false)
+  const [mapLoading, setMapLoading] = useState(false)
+  const [cityLoading, setCityLoading] = useState(false)
   const loader = new Loader({
     apiKey: "AIzaSyAOEAFF4EHYHpp9kiCkK-mnVD7DzRWT9Mg",
     version: "weekly",
   });
   useEffect(()=>{
-    setLoading(true);
+    setMapLoading(true);
     loader.load().then((google) => {
       //Load the google map
       const zoom = 5;
@@ -106,6 +114,8 @@ export default function Map({userChoices, setUserChoices}){
         zoom: 4,
         minZoom: zoom - 3,
         maxZoom: zoom + 3,
+        disableDefaultUI: true,
+        gestureHandling: "greedy",
         restriction: {
           latLngBounds: {
             north: 80,
@@ -118,7 +128,6 @@ export default function Map({userChoices, setUserChoices}){
       //Populate map with city locations
       getAllCities().then((cities)=>{
         cities.forEach(async(city, index)=>{
-          console.log('adding marker')
           const marker = await new google.maps.Marker({
             position: {lat : city.lat, lng : city.lng},
             map: map,
@@ -131,7 +140,7 @@ export default function Map({userChoices, setUserChoices}){
         });
         })
         //A bit eye-jerky for the user removing the loading div - make less abrupt
-        setTimeout(()=>setLoading(false), 1000)
+        setTimeout(()=>setMapLoading(false), 1000)
       })
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,6 +163,8 @@ export default function Map({userChoices, setUserChoices}){
       reports: [],
       stats: []
     }
+    //TODO: Create a cache that holds already clicked cities to reduce requests
+    setCityLoading(true)
     Promise.all(urls.map((url)=>fetch(url))).then(async(values)=>{
       //TODO: Could probably add a forEach later to clean this up
       const salariesJsonData = await values[0].json();
@@ -163,20 +174,19 @@ export default function Map({userChoices, setUserChoices}){
       dataForUser.reports = reportsJsonData.categories.find((object)=>object.id===userChoices.priority)
       userChoices.stats.forEach((stat)=>dataForUser.stats.push(statsJsonData.categories.find((object)=>object.name===stat)))
       setCityData(dataForUser)
+      setCityLoading(false)
     })
   }
-  useEffect(()=>{
-    console.log(cityData)
-  },[cityData])
   return (
     <MapWrapper>
-      {loading && <Loading><span>Loading Map...</span></Loading>}
+      {mapLoading && <MapLoadingMessage><span>Loading Map...</span></MapLoadingMessage>}
       <MapArea id='map'></MapArea>
       <Data>
+        {cityLoading && <CityLoadingMessage>Loading city data...</CityLoadingMessage>}
         <DataNav>
           <Tab className={selection==='salaries'? "active" : ""} onClick={()=>setSelection('salaries')}>Salaries</Tab>
-          <Tab className={selection==='reports'? "active" : ""} onClick={()=>setSelection('reports')}>Report</Tab>
           <Tab className={selection==='stats'? "active" : ""} onClick={()=>setSelection('stats')}>Stats</Tab>
+          <Tab className={selection==='reports'? "active" : ""} onClick={()=>setSelection('reports')}>Report</Tab>
         </DataNav>
         <DataDisplay>
           <CityName>{cityData? cityData.city_name : "click a city"}</CityName>

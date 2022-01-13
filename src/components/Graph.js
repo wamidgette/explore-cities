@@ -9,6 +9,7 @@ const Canvas = styled.canvas`
   width: 400px;
   @media${BreakPoints.smallOnly}{
     width: 300px;
+    height: 400px;
   }
 `;
 const GraphTitle = styled.h4`
@@ -30,14 +31,19 @@ export function Graph({cityData, selection}){
       data = cityData.salaries['salary_percentiles']
       labels = ['low-end', 'medium', 'high-end']
       dataset = {
-        label: `${cityData.city_name}`,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        borderRadius: 5,
+        backgroundColor: '#AADAFF',
+        borderColor: '#020077',
         data: [data['percentile_25'], data['percentile_50'], data['percentile_75']],     
       }  
       options = {
+        responsive: true,
         scales: {
           y: {
+            grid: {
+              color: 'black',
+            },
             title:{
               display: true,
               text: 'Annual Salary USD',
@@ -45,15 +51,21 @@ export function Graph({cityData, selection}){
                 size: 14
               }
             },
+          },
+          x: {
+            grid: {
+              display: false,
+            }
           }
         },
         plugins: {
           legend: {
-            display: true,
+            display: false,
             labels: {
               font: {
-                size: 18
-              }
+                size: 18,
+                color: 'red'
+              },
             }
           }
         }
@@ -64,14 +76,19 @@ export function Graph({cityData, selection}){
       data = cityData.stats
       labels = data.map((stat=>stat.name))
       dataset = {
+        borderWidth: 2,
+        borderRadius: 5,
         label: `${cityData.city_name}`,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: '#AADAFF',
+        borderColor: '#020077',
         data: data.map((stat)=>stat['score_out_of_10'])   
       }  
       options = {
         scales: {
           y: {
+            grid: {
+              color: 'black',
+            },
             title:{
               display: true,
               text: 'Rank out of 10',
@@ -81,11 +98,17 @@ export function Graph({cityData, selection}){
             },
             min:0,
             max:10
+          },
+          x: {
+            color: 'black',
+            grid: {
+              display: false
+            }
           }
         },
         plugins: {
           legend: {
-            display: true,
+            display: false,
             labels: {
               font: {
                 size: 18

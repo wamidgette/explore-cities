@@ -134,7 +134,12 @@ export function Graph({cityData, selection}){
       type: 'bar',
       data: {
         labels: null,
-        datasets: []
+        datasets: [{
+          borderWidth: 2,
+          borderRadius: 5,
+          backgroundColor: '#AADAFF',
+          borderColor: '#020077',
+        }]  
       },
       options: {
       }

@@ -71,9 +71,9 @@ export const TabButton = styled.button.attrs({type: 'button'})`
 
 `;
 
-
 export const ButtonLink = styled(Link)`
   text-decoration: none;
+  color: black;
   min-width: 150px;
   height: 50px;
   width: max-content;
@@ -104,15 +104,18 @@ export const DirectionButton = styled(Link)`
 `;
 
 export const DropDownList = styled.select`
-  width: min-content;
-  height: min-height;
+  width: max-content;
   border-radius: 10px;
   border: 2px solid var(--secondary-color);
-  background-image: none;
-  text-align:center;
+  background: #fff;
+  text-align: center;
   cursor: pointer;
   font-size: 1.5rem;
+  padding: 10px;
   option{
+    font-size: 1rem;
+  }
+  @media${BreakPoints.smallOnly}{
     font-size: 1rem;
   }
 `;

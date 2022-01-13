@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import styled from 'styled-components'
-import { BreakPoints, TextButton, DirectionButton, TabButton } from '../styles/styles';
+import { BreakPoints, TextButton, DirectionButton, TabButton, ButtonLink } from '../styles/styles';
 import { Link } from 'react-router-dom';
 import { Loader } from "@googlemaps/js-api-loader"
 import {getAllCities} from '../helpers/teleport'
@@ -53,6 +53,7 @@ const MapArea = styled.div`
 const DataDisplay = styled.div`
   background: var(--off-white);
   padding: 20px;
+  position: relative;
   @media${BreakPoints.largeDown}{
     display: flex;
     justify-content: center;
@@ -91,8 +92,15 @@ const CityName = styled.h3`
     font-size: 1.5rem
   }
 `;
-const Selection = styled.div``;
-
+const ChangeSelection = styled(ButtonLink)`
+  display: block;
+  margin-top: 10px;
+  height: min-content;
+  width: max-content;
+  text-align: center;
+  font-size: 14px;
+  margin: 20px auto 0 auto;
+`;
 export default function Map({userChoices, setUserChoices}){
   //TODO: if selections have not been made redirect the user to the home page
   const [cityData, setCityData] = useState(null)
@@ -191,8 +199,8 @@ export default function Map({userChoices, setUserChoices}){
         <DataDisplay>
           <CityName>{cityData? cityData.city_name : "click a city"}</CityName>
           {selection==='reports'? <Report cityData={cityData}></Report> : <Graph cityData={cityData} selection={selection}></Graph> }    
+          <ChangeSelection to={'../job'}>change preferences</ChangeSelection>
         </DataDisplay>
-        <Selection></Selection>
       </Data>
     </MapWrapper>
   )

@@ -10,25 +10,36 @@ const CheckBoxContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 500px;
   margin: auto;
+  width: 500px;
+  gap: 10px;
+  @media${BreakPoints.medDown}{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 const CheckBoxLabel = styled.label`
   input{
     position: absolute;
     opacity: 0;
   }
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: 0.3s;
   width: max-content;
   height: min-height;
   border-radius: 10px;
   border: 2px solid var(--secondary-color);
-  margin: 10px;
   padding: 5px;
   cursor: pointer;
   background: white;
   &.checked{
     background: orange;
+  }
+  @media${BreakPoints.medDown}{
+    width: 100%;
   }
 `;
 const RemainingChoices = styled.p`
@@ -39,11 +50,9 @@ const RemainingChoices = styled.p`
     }
   }
 `;
-
 const ToMapButton = styled(TextButton)`
   align-self: center;
 `;
-
 
 export default function Stats({userChoices, setUserChoices, data}){
   const navigate = useNavigate();
@@ -78,7 +87,7 @@ export default function Stats({userChoices, setUserChoices, data}){
     <>
       <FormWrapper>
         <h3>I want to see world rankings for:</h3>
-        <span>(Select up to five)</span>
+        <p>(Select up to five)</p>
         <CheckBoxContainer>
           {data.map((data, index) => 
             <CheckBoxLabel className={userChoices.stats.includes(data) && "checked"} key={index} htmlFor={data}>

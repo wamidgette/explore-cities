@@ -4,6 +4,10 @@ import { BreakPoints, ButtonLink } from '../styles/styles';
 
 const Intro = styled.div`
   text-align: center;
+  padding: 0 10px;
+  p{
+    margin-bottom: 30px;
+  }
 `;
 
 export default function Welcome(){

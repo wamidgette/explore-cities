@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 
 const FormWrapperDiv = styled.div`
   text-align: center;
-  margin: 
+  padding: 0 10px;
 `;
 const Form = styled.form`
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 800px;
+  width: 100%;
   margin: 40px auto;
-  padding: 10px 50px;
+  padding: 20px 0;
   text-align: center !important;
   height: min-content;
   border-top: 1px solid var(--primary-color);

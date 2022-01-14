@@ -57,9 +57,9 @@ export function Report({cityData}){
   return(
     <ReportContainer>
       <ReportTitle>{reportData? reportData.label : 'no data'}</ReportTitle>
-      <ReportDetails>
-        {reportData? (reportData.data.map((object, index)=><ReportLine key={index}><span>{`${object.label}: `}</span><span>{getValueFromData(object)}</span></     ReportLine>)) : ('')}
-      </ReportDetails>
+      <div>
+        {reportData && reportData.data.map((object, index)=><ReportLine key={index}><span>{`${object.label}: `}</span><span>{getValueFromData(object)}</span></ReportLine>)}
+      </div>
     </ReportContainer>
   )
 }

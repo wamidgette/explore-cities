@@ -1,6 +1,6 @@
 {
   "name": "explore-a-city",
-  "homepage": "https://willmidgette.com/explore-a-city",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

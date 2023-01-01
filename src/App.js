@@ -7,20 +7,18 @@ import Job from './components/Job'
 import Priority from './components/Priority'
 import Stats from './components/Stats'
 import MainApp from './components/Map'
-import styled from 'styled-components'
 import { Helmet } from 'react-helmet';
 import formData from './data/form-data';
-const AppDiv = styled.div`
-`;
+
 function App() {
   const [userChoices, setUserChoices] = useState({
     job: localStorage.getItem('job') || formData.jobs[0].id,
     priority: localStorage.getItem('priority') || formData.reports[0].id,
     stats: localStorage.getItem('stats')?.split(",") || []
   }) 
-  //if cached, use cached userchoices (preserves when user refreshes)
+  //if cached, use cached userchoices (preserves when user refreshes)  
   return (
-    <AppDiv className = "app">  
+    <div className = "app">  
       <Helmet>
         <meta charSet="utf-8" />
         <title>Urban Area Info Finder</title>
@@ -37,7 +35,7 @@ function App() {
           <Route path='/map' element={<MainApp userChoices={userChoices} setUserChoices={setUserChoices}/>}/>
         </Routes>
       </main>
-    </AppDiv>
+    </div>
   );
 }
 export default App;

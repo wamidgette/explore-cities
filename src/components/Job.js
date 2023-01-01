@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import styled from 'styled-components'
-import { BreakPoints, DirectionButton, DropDownList } from '../styles/styles';
+import { DirectionButton, DropDownList } from '../styles/styles';
 import { FormWrapper } from './FormWrapper';
 
 export default function UserChoices({userChoices, setUserChoices, data}){

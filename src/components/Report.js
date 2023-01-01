@@ -9,8 +9,6 @@ const ReportTitle = styled.h4`
   text-align: center;
   font-size: 1.3rem;
 `;
-const ReportDetails = styled.div`
-`;
 const ReportLine = styled.div`
   font-weight: bold;
   color: black;
@@ -27,17 +25,19 @@ const ReportLine = styled.div`
 `;
 
 function getValueFromData(object){
-  let value = object['float_value'] || object['int_value'] || object['string_value'] || object['currency_dollar_value'] || object['percent_value'] 
-  const type = object.type
+  console.log(object)
+  let value = object['float_value'] || object['int_value'] || object['string_value'] || object['currency_dollar_value'] || object['percent_value']; 
+  const type = object.type;
+  console.log(value)
   switch(type){
     case 'percent':
-      value = `${(value*100).toFixed(2)}%`
+      value = `${parseInt(value*100).toFixed(2)}%`;
       break;
     case 'currency_dollar':
       value = `$${value}`
       break; 
     case 'float':
-      value = value.toFixed(2)
+      value = parseInt(value).toFixed(2);
       break;
     default:
       break;

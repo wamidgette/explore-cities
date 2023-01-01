@@ -1,6 +1,6 @@
 {
-  "name": "willmidgette-website-react",
-  "homepage": "http://willmidgette.com",
+  "name": "explore-a-city",
+  "homepage": "https://willmidgette.com/explore-a-city",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +26,9 @@
     "styled-components": "^5.3.3",
     "swiper": "^7.3.3",
     "web-vitals": "^1.1.2"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -128,8 +128,8 @@ export default function Map({userChoices, setUserChoices}){
           latLngBounds: {
             north: 80,
             south: -70,
-            east: 185,
-            west: 190,
+            east: 180,
+            west: -180,
           },
         },
       })

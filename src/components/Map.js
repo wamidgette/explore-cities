@@ -108,7 +108,7 @@ export default function Map({userChoices, setUserChoices}){
   const [mapLoading, setMapLoading] = useState(false)
   const [cityLoading, setCityLoading] = useState(false)
   const loader = new Loader({
-    apiKey: "AIzaSyAOEAFF4EHYHpp9kiCkK-mnVD7DzRWT9Mg",
+    apiKey: process.env.GOOGLE_API_KEY,
     version: "weekly",
   });
   useEffect(()=>{
